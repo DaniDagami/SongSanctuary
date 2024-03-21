@@ -10,10 +10,10 @@ namespace Data.Model {
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime ReleaseYear { get; set; }
-        public int SongCount => Songs.Count;
+        public int SongCount { get; set; }
         public int? BandId { get; set; }
 
-        public ICollection<Song> Songs { get; private set; }
+        public ICollection<Song> Songs { get; set; }
         public Band? Band { get; set; }
     }
 }
