@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace SongSanctuary.View {
         public bool Active { get; set; }
         public int MemberCount { get; set; }
 
-        public ICollection<Artist> Artist { get; set;}
+        public ICollection<Artist> Artists { get; set;}
+        public ICollection<Album> Albums { get; set; }
     }
 }
