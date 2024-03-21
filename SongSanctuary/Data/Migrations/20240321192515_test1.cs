@@ -33,7 +33,8 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReleaseYear = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReleaseYear = table.Column<int>(type: "int", nullable: false),
+                    SongCount = table.Column<int>(type: "int", nullable: false),
                     BandId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

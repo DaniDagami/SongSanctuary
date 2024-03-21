@@ -1,4 +1,5 @@
 ﻿using Controller.Controller;
+using Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SongSanctuary.View {
-    public class Display {
+    public class SongDisplay {
         private int _closeOperationId = 6;
         private SongController _songController = new SongController();
 
-        public Display() {
+        public SongDisplay() {
             Input();
         }
 
@@ -63,7 +64,7 @@ namespace SongSanctuary.View {
             song.Genre = Console.ReadLine();
             Console.WriteLine("Do you want to add an albumId? Y for yes/ N for no: ");
             string answer = Console.ReadLine();
-            if (answer.ToUpper() != "Y") { 
+            if (answer.ToUpper() == "Y") { 
                 song.AlbumId = int.Parse(Console.ReadLine());
             }
             _songController.Add(song);
@@ -71,11 +72,11 @@ namespace SongSanctuary.View {
 
         private void ListAll() {
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 16) + "PRODUCTS");
+            Console.WriteLine(new string(' ', 16) + "Songs");
             Console.WriteLine(new string('-', 40));
             var songs = _songController.GetAll();
             foreach (var song in songs) {
-                Console.WriteLine($"{song.Id} {song.Name} {song.Length} {song.Genre} {song.Album?.Name}");
+                Console.WriteLine($"{song.Id} {song.Name} {song.Length} {song.Genre} {song.Album.Id} {song.Album.Name}");
             }
         }
 

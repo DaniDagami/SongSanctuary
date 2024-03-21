@@ -37,8 +37,8 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ReleaseYear")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
 
                     b.Property<int>("SongCount")
                         .HasColumnType("int");
@@ -50,7 +50,7 @@ namespace Data.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("SongSanctuary.View.Artist", b =>
+            modelBuilder.Entity("Data.Model.Artist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace Data.Migrations
                     b.ToTable("Artists");
                 });
 
-            modelBuilder.Entity("SongSanctuary.View.Band", b =>
+            modelBuilder.Entity("Data.Model.Band", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +102,7 @@ namespace Data.Migrations
                     b.ToTable("Bands");
                 });
 
-            modelBuilder.Entity("SongSanctuary.View.Song", b =>
+            modelBuilder.Entity("Data.Model.Song", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,23 +133,23 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Model.Album", b =>
                 {
-                    b.HasOne("SongSanctuary.View.Band", "Band")
+                    b.HasOne("Data.Model.Band", "Band")
                         .WithMany("Albums")
                         .HasForeignKey("BandId");
 
                     b.Navigation("Band");
                 });
 
-            modelBuilder.Entity("SongSanctuary.View.Artist", b =>
+            modelBuilder.Entity("Data.Model.Artist", b =>
                 {
-                    b.HasOne("SongSanctuary.View.Band", "Band")
+                    b.HasOne("Data.Model.Band", "Band")
                         .WithMany("Artists")
                         .HasForeignKey("BandId");
 
                     b.Navigation("Band");
                 });
 
-            modelBuilder.Entity("SongSanctuary.View.Song", b =>
+            modelBuilder.Entity("Data.Model.Song", b =>
                 {
                     b.HasOne("Data.Model.Album", "Album")
                         .WithMany("Songs")
@@ -163,7 +163,7 @@ namespace Data.Migrations
                     b.Navigation("Songs");
                 });
 
-            modelBuilder.Entity("SongSanctuary.View.Band", b =>
+            modelBuilder.Entity("Data.Model.Band", b =>
                 {
                     b.Navigation("Albums");
 

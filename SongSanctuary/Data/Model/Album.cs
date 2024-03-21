@@ -1,5 +1,4 @@
-﻿using SongSanctuary.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,7 @@ namespace Data.Model {
     public class Album {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime ReleaseYear { get; set; }
+        public int ReleaseYear { get; set; }
         public int SongCount { get; set; }
         public int? BandId { get; set; }
 
