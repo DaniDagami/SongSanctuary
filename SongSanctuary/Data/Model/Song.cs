@@ -14,5 +14,6 @@ namespace SongSanctuary.View {
 
         public int? AlbumId { get; set; }
         public Album? Album { get; set; }
+        //comment
     }
 }
