@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SongSanctuary.View {
+namespace Data.Model {
     public class Song {
         public int Id { get; set; }
         public string Name { get; set; }
