@@ -17,5 +17,9 @@ namespace Data.Model {
 
         public int? AlbumId { get; set; }
         public Album? Album { get; set; }
+
+        public override string? ToString() {
+            return $"Id: {Id}, Name: {Name}, Length: {Length.Hours}:{Length.Minutes}, Genre: {Genre}";
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace SongSanctuary {
             do {
                 Menu();
                 operation = int.Parse(Console.ReadLine());
+                Console.Clear();
                 switch(operation) {
                     case 1:
                         SongDisplay songDisplay = new SongDisplay();

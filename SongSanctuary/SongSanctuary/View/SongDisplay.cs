@@ -20,6 +20,7 @@ namespace SongSanctuary.View {
             do {
                 ShowMenu();
                 operation = int.Parse(Console.ReadLine());
+                Console.Clear();
                 switch(operation) {
                     case 1:
                         ListAll();
@@ -31,7 +32,7 @@ namespace SongSanctuary.View {
                         //Update();
                         break;
                     case 4:
-                        //Fetch();
+                        Fetch();
                         break;
                     case 5:
                         Delete();
@@ -48,7 +49,8 @@ namespace SongSanctuary.View {
             if(int.TryParse(Console.ReadLine(), out int id)) {
                 Song song = _songController.Get(id);
                 if(song == null) {
-                    throw new ArgumentException("Song was not found!");
+                    Console.WriteLine("Song was not found!");
+                    return;
                 }
                 _songController.Delete(id);
                 Console.WriteLine("This song has been deleted!");
@@ -101,8 +103,30 @@ namespace SongSanctuary.View {
             Console.WriteLine(new string('-', 40));
 
             foreach(var song in songs) {
-                Album? album = albumController.Get(song.AlbumId); 
-                Console.WriteLine($"{song.Id} {song.Name} {song.Length.Hours}:{song.Length.Minutes} {song.Genre} {album?.Id} {album?.Name}");
+                Album? album = albumController.Get(song.AlbumId);
+                Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+            }
+        }
+
+        private void Fetch() {
+            Console.WriteLine("Enter ID to fetch:");
+            AlbumController albumController = new AlbumController();
+
+            if(int.TryParse(Console.ReadLine(), out int id)) {
+                Song? song = _songController.Get(id);
+
+                if(song == null) {
+                    Console.WriteLine("Song not found!");
+                }
+
+                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string(' ', 16) + "Song");
+                Console.WriteLine(new string('-', 40));
+
+                Album? album = albumController.Get(song?.AlbumId);
+                Console.WriteLine(album == null ? song?.ToString() : song?.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+            } else {
+                Console.WriteLine("Invalid input. Input should be integer.");
             }
         }
 
