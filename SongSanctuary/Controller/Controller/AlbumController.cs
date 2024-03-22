@@ -15,8 +15,11 @@ namespace Controller.Controller {
             }
         }
 
-        public Album Get(int id) {
+        public Album? Get(int? id) {
             using(_appContext = new ApplicationDbContext()) {
+                if(id == null) {
+                    return null;
+                }
                 return _appContext.Albums.Find(id);
             }
         }

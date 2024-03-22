@@ -93,12 +93,16 @@ namespace SongSanctuary.View {
         }
 
         private void ListAll() {
+            AlbumController albumController = new AlbumController();
+            var songs = _songController.GetAll();
+
             Console.WriteLine(new string('-', 40));
             Console.WriteLine(new string(' ', 16) + "Songs");
             Console.WriteLine(new string('-', 40));
-            var songs = _songController.GetAll();
+
             foreach(var song in songs) {
-                Console.WriteLine($"{song.Id} {song.Name} {song.Length} {song.Genre} {song.Album.Id} {song.Album.Name}");
+                Album? album = albumController.Get(song.AlbumId); 
+                Console.WriteLine($"{song.Id} {song.Name} {song.Length.Hours}:{song.Length.Minutes} {song.Genre} {album?.Id} {album?.Name}");
             }
         }
 
