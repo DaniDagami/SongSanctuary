@@ -23,7 +23,7 @@ namespace SongSanctuary.View {
                 Console.Clear();
                 switch (operation) {
                     case 1:
-                        _songController.ListAll();
+                        SongController.ListAll();
                         break;
                     case 2:
                         Add();
@@ -45,22 +45,6 @@ namespace SongSanctuary.View {
         }
 
 
-        /*private void ListAll() {
-            AlbumController albumController = new AlbumController();
-            var songs = _songController.GetAll();
-
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 16) + "Songs");
-            Console.WriteLine(new string('-', 40));
-
-            foreach (var song in songs) {
-                Album? album = albumController.Get(song.AlbumId);
-                Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
-            }
-            Console.WriteLine(new string('-', 40));
-        }*/
-
-
         private void Add() {
             Song song = new Song();
             Console.WriteLine("Enter name: ");
@@ -80,7 +64,7 @@ namespace SongSanctuary.View {
 
             if (answer.ToUpper() == "Y") {
                 AlbumController albumController = new AlbumController();
-                albumController.ListAll(); // lists all albums so you can choose
+                AlbumController.ListAll(); // lists all albums so you can choose
                 Console.WriteLine("Enter album ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int albumId))
                     Console.WriteLine("Invalid input. Song will not be associated with any album.");
@@ -96,13 +80,14 @@ namespace SongSanctuary.View {
 
 
         private void Update() {
+            SongController.ListAll(); // show all available songs
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id)) {
                 Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
 
             Song song = _songController.Get(id);
-            if (song != null)
+            if (song == null)
                 Console.WriteLine("Song not found!"); // TODO: ArgumentException
 
             Console.WriteLine("Current value for this product are:");

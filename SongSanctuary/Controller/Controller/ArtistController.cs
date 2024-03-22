@@ -7,9 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Controller.Controller {
-    public class ArtistController {
-        private ApplicationDbContext _appContext;
-        public List<Artist> GetAll() {
+    public class ArtistController : Controller {
+        public static List<Artist> GetAll() {
             using(_appContext = new ApplicationDbContext()) {
                 return _appContext.Artists.ToList();
             }
@@ -46,6 +45,17 @@ namespace Controller.Controller {
                     _appContext.SaveChanges();
                 }
             }
+        }
+
+        public static void ListAll() {
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string(' ', 16) + "Artists");
+            Console.WriteLine(new string('-', 40));
+            var artists = GetAll();
+            foreach (var artist in artists) {
+                Console.WriteLine(artist.ToString()); // TODO: make a ToString()
+            }
+            Console.WriteLine(new string('-', 40));
         }
     }
 }

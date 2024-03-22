@@ -7,9 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Controller.Controller {
-    public class SongController {
-        private ApplicationDbContext _appContext;
-        public List<Song> GetAll() {
+    public class SongController : Controller {
+        public static List<Song> GetAll() {
             using(_appContext = new ApplicationDbContext()) {
                 return _appContext.Songs.ToList();
             }
@@ -48,7 +47,7 @@ namespace Controller.Controller {
             }
         }
 
-        public void ListAll() {
+        public static void ListAll() {
             AlbumController albumController = new AlbumController();
             var songs = GetAll();
 

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Controller.Controller {
-    public class AlbumController {
-        private ApplicationDbContext _appContext;
-        public List<Album> GetAll() {
+    public class AlbumController : Controller {
+
+        public static List<Album> GetAll() {
             using(_appContext = new ApplicationDbContext()) {
                 return _appContext.Albums.ToList();
             }
@@ -51,7 +51,7 @@ namespace Controller.Controller {
             }
         }
 
-        public void ListAll() {
+        public static void ListAll() {
             Console.WriteLine(new string('-', 40));
             Console.WriteLine(new string(' ', 16) + "Albums");
             Console.WriteLine(new string('-', 40));

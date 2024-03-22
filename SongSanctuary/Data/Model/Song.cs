@@ -19,7 +19,7 @@ namespace Data.Model {
         public Album? Album { get; set; }
 
         public override string? ToString() {
-            return $"Id: {Id}, Name: {Name}, Length: {Length.Hours}:{Length.Minutes}, Genre: {Genre}";
+            return $"Id: {Id}, Name: {Name}, Length: {Length.Hours}:{Length.Minutes:d2}, Genre: {Genre}";
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SongSanctuary.View {
                 Console.Clear();
                 switch (operation) {
                     case 1:
-                        _albumController.ListAll();
+                        AlbumController.ListAll();
                         break;
                     case 2:
                         Add();
