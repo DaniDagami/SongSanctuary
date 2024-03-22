@@ -28,10 +28,10 @@ namespace SongSanctuary.View {
                         Add();
                         break;
                     case 3:
-                        //Update();
+                        Update();
                         break;
                     case 4:
-                        //Fetch();
+                        Fetch();
                         break;
                     case 5:
                         Delete();
@@ -43,6 +43,88 @@ namespace SongSanctuary.View {
             } while(operation != closeOperationId);
         }
 
+
+        private void Add() {
+            Album album = new Album();
+            Console.WriteLine("Enter name: ");
+            album.Name = Console.ReadLine();
+            Console.WriteLine("Enter release year: ");
+            album.ReleaseYear = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter song count: ");
+            album.SongCount = int.Parse(Console.ReadLine());
+            Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
+            string answer = Console.ReadLine();
+            if(answer.ToUpper() == "Y") {
+                album.BandId = int.Parse(Console.ReadLine());
+            }
+            _albumController.Add(album);
+        }
+
+        private void Update() {
+            AlbumController.ListAll(); // show all available albums
+            Console.WriteLine("Enter ID to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int id)) {
+                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+            }
+
+            Album album = _albumController.Get(id);
+            if (album == null)
+                Console.WriteLine("Album not found!"); // TODO: ArgumentException
+
+            Console.WriteLine("Current value for this album are:");
+            Console.WriteLine(album.ToString());
+            Console.WriteLine("Enter name: ");
+            album.Name = Console.ReadLine();
+            Console.WriteLine("Enter release year: ");
+            album.ReleaseYear = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter genre: ");
+            album.SongCount = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter albumId: ");
+            Console.WriteLine("Do you want to associate the album with an existing band (Y/N): ");
+            string answer = Console.ReadLine();
+
+            if (answer.ToUpper() == "Y") {
+                BandController bandController = new BandController();
+                BandController.ListAll(); // TODO: Need the method | lists all bands so you can choose
+                Console.WriteLine("Enter band ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int bandId))
+                    Console.WriteLine("Invalid input. Album will not be associated with any band.");
+
+                Band band = bandController.Get(bandId);
+                if (band == null)
+                    Console.WriteLine("Band not found. Album will not be associated with any band.");
+
+                album.BandId = bandId;
+            }
+            _albumController.Update(album);
+        }
+
+        private void Fetch() {
+            Console.WriteLine("Enter ID to fetch:");
+            BandController bandController = new BandController();
+
+            if (int.TryParse(Console.ReadLine(), out int id)) {
+                Album? album = _albumController.Get(id);
+
+                if (album == null)
+                    Console.WriteLine("Album not found!"); // TODO: ArgumentException
+
+                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string(' ', 16) + "Album");
+                Console.WriteLine(new string('-', 40));
+                
+                List<Song> albumSongs = SongController.GetAll().Where(x => x.AlbumId == id).ToList();
+
+                foreach (var song in albumSongs) {
+                    Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+                }
+
+                Console.WriteLine(new string('-', 40));
+            } else {
+                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+            }
+        }
+
         private void Delete() {
             Console.WriteLine("Enter ID to delete: ");
             int id = int.Parse(Console.ReadLine());
@@ -52,22 +134,6 @@ namespace SongSanctuary.View {
 
             _albumController.Delete(id);
             Console.WriteLine("This Album has been deleted!");
-        }
-
-        private void Add() {
-            Album Album = new Album();
-            Console.WriteLine("Enter name: ");
-            Album.Name = Console.ReadLine();
-            Console.WriteLine("Enter release year: ");
-            Album.ReleaseYear = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter song count: ");
-            Album.SongCount = int.Parse(Console.ReadLine());
-            Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
-            string answer = Console.ReadLine();
-            if(answer.ToUpper() == "Y") {
-                Album.BandId = int.Parse(Console.ReadLine());
-            }
-            _albumController.Add(Album);
         }
     }
 }

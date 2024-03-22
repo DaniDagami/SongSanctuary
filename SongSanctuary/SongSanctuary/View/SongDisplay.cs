@@ -89,7 +89,7 @@ namespace SongSanctuary.View {
             if (song == null)
                 Console.WriteLine("Song not found!"); // TODO: ArgumentException
 
-            Console.WriteLine("Current value for this product are:");
+            Console.WriteLine("Current value for this album are:");
             Console.WriteLine(song.ToString());
             Console.WriteLine("Enter name: ");
             song.Name = Console.ReadLine();
@@ -97,8 +97,22 @@ namespace SongSanctuary.View {
             song.Length = TimeSpan.Parse(Console.ReadLine());
             Console.WriteLine("Enter genre: ");
             song.Genre = Console.ReadLine();
-            Console.WriteLine("Enter albumId: ");
-            song.AlbumId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Do you want to associate the song with an existing album? (Y/N): ");
+            string answer = Console.ReadLine();
+
+            if (answer.ToUpper() == "Y") {
+                AlbumController albumController = new AlbumController();
+                AlbumController.ListAll(); // lists all albums so you can choose
+                Console.WriteLine("Enter album ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int albumId))
+                    Console.WriteLine("Invalid input. Song will not be associated with any album.");
+
+                Album album = albumController.Get(albumId);
+                if (album == null)
+                    Console.WriteLine("Album not found. Song will not be associated with any album.");
+
+                song.AlbumId = albumId;
+            }
             _songController.Update(song);
         }
 
