@@ -20,7 +20,7 @@ namespace SongSanctuary.View {
             do {
                 ShowMenu();
                 operation = int.Parse(Console.ReadLine());
-                switch (operation) {
+                switch(operation) {
                     case 1:
                         ListAll();
                         break;
@@ -40,32 +40,54 @@ namespace SongSanctuary.View {
                         break;
 
                 }
-            } while (operation != _closeOperationId);
+            } while(operation != _closeOperationId);
         }
 
         private void Delete() {
             Console.WriteLine("Enter ID to delete: ");
-            int id = int.Parse(Console.ReadLine());
-            Song song = _songController.Get(id);
-            if (song == null)
-                Console.WriteLine("Song was not found!");
-
-            _songController.Delete(id);
-            Console.WriteLine("This song has been deleted!");
+            if(int.TryParse(Console.ReadLine(), out int id)) {
+                Song song = _songController.Get(id);
+                if(song == null) {
+                    throw new ArgumentException("Song was not found!");
+                }
+                _songController.Delete(id);
+                Console.WriteLine("This song has been deleted!");
+            } else {
+                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+            }
         }
 
         private void Add() {
             Song song = new Song();
             Console.WriteLine("Enter name: ");
             song.Name = Console.ReadLine();
-            Console.WriteLine("Enter length: ");
-            song.Length = TimeSpan.Parse(Console.ReadLine());
+            Console.WriteLine("Enter length (format: hh:mm:ss): ");
+            string lengthInput = Console.ReadLine();
+
+            if(TimeSpan.TryParse(lengthInput, out TimeSpan length)) {
+                song.Length = TimeSpan.Parse(lengthInput);
+            } else {
+                Console.WriteLine("Invalid length format. Song length will be set to default (0).");
+            }
+
             Console.WriteLine("Enter genre: ");
             song.Genre = Console.ReadLine();
-            Console.WriteLine("Do you want to add an albumId? Y for yes/ N for no: ");
+            Console.WriteLine("Do you want to associate the song with an existing album? (Y/N): ");
             string answer = Console.ReadLine();
-            if (answer.ToUpper() == "Y") { 
-                song.AlbumId = int.Parse(Console.ReadLine());
+
+            if(answer.ToUpper() == "Y") {
+                AlbumController albumController = new AlbumController();
+                Console.WriteLine("Enter album ID: ");
+                if(int.TryParse(Console.ReadLine(), out int albumId)) {
+                    Album album = albumController.Get(albumId);
+                    if(album != null) {
+                        song.AlbumId = albumId;
+                    } else {
+                        Console.WriteLine("Album not found. Song will not be associated with any album.");
+                    }
+                } else {
+                    Console.WriteLine("Invalid input. Song will not be associated with any album.");
+                }
             }
             _songController.Add(song);
         }
@@ -75,7 +97,7 @@ namespace SongSanctuary.View {
             Console.WriteLine(new string(' ', 16) + "Songs");
             Console.WriteLine(new string('-', 40));
             var songs = _songController.GetAll();
-            foreach (var song in songs) {
+            foreach(var song in songs) {
                 Console.WriteLine($"{song.Id} {song.Name} {song.Length} {song.Genre} {song.Album.Id} {song.Album.Name}");
             }
         }

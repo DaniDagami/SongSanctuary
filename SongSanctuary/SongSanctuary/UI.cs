@@ -35,10 +35,10 @@ namespace SongSanctuary {
                         AlbumDisplay albumDisplay = new AlbumDisplay();
                         break;
                     case 3:
-
+                        ArtistDisplay artistDispay = new ArtistDisplay();
                         break;
                     case 4:
-
+                        BandDisplay bandDispay = new BandDisplay();
                         break;
                 }
             } while(operation != _closeOperationId);
