@@ -14,7 +14,11 @@ namespace Data.Model {
         public int? BandId { get; set; }
         
         public Band? Band { get; set; }
-        public ICollection<Song> Songs { get; set; }
+        public List<Song> Songs { get; set; }
+
+        public Album() {
+            Songs = new List<Song>();
+        }
 
         public override string ToString() {
             return $"Id: {Id}, Name: {Name}, Release Year: {ReleaseYear}, Song Count: {SongCount}, Band Id: {(BandId.HasValue ? BandId : "N/A")}";

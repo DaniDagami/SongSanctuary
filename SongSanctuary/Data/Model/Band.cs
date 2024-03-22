@@ -12,7 +12,12 @@ namespace Data.Model {
         public bool Active { get; set; }
         public int MemberCount { get; set ; }
 
-        public ICollection<Artist> Artists { get; set;}
-        public ICollection<Album> Albums { get; set; }
+        public Band() {
+            Artists = new List<Artist>();
+            Albums = new List<Album>();
+        }
+
+        public List<Artist> Artists { get; set;}
+        public List<Album> Albums { get; set; }
     }
 }
