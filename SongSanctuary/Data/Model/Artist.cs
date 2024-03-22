@@ -13,5 +13,9 @@ namespace Data.Model {
         public int? BandId { get; set; }
 
         public Band? Band { get; set; }
+
+        public override string ToString() {
+            return $"Id: {Id}, First Name: {FullName}, Last Name: {LastName}, Alive: {(Alive ? "Yes" : "No")}, Band Id: {(BandId.HasValue ? BandId : "N/A")}";
+        }
     }
 }
