@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SongSanctuary.View {
-    public class AlbumDisplay {
-        private int _closeOperationId = 6;
+    public class AlbumDisplay : Display {
         private AlbumController _albumController = new AlbumController();
 
         public AlbumDisplay() {
@@ -41,7 +40,7 @@ namespace SongSanctuary.View {
                         break;
 
                 }
-            } while(operation != _closeOperationId);
+            } while(operation != closeOperationId);
         }
 
         private void Delete() {
@@ -69,20 +68,6 @@ namespace SongSanctuary.View {
                 Album.BandId = int.Parse(Console.ReadLine());
             }
             _albumController.Add(Album);
-        }
-
-
-        private void ShowCommands() {
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 18) + "Commands");
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine("1. List all entries");
-            Console.WriteLine("2. Add new entry");
-            Console.WriteLine("3. Update entry");
-            Console.WriteLine("4. Fetch entry by ID");
-            Console.WriteLine("5. Delete entry by ID");
-            Console.WriteLine("6. Exit");
-            Console.WriteLine(new string('-', 40));
         }
     }
 }

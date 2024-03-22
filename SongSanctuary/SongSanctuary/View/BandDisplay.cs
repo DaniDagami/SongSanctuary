@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SongSanctuary.View {
-    public class BandDisplay {
+    public class BandDisplay : Display {
         public BandDisplay() {
 
         }
