@@ -47,5 +47,20 @@ namespace Controller.Controller {
                 }
             }
         }
+
+        public void ListAll() {
+            AlbumController albumController = new AlbumController();
+            var songs = GetAll();
+
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string(' ', 16) + "Songs");
+            Console.WriteLine(new string('-', 40));
+
+            foreach (var song in songs) {
+                Album? album = albumController.Get(song.AlbumId);
+                Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+            }
+            Console.WriteLine(new string('-', 40));
+        }
     }
 }

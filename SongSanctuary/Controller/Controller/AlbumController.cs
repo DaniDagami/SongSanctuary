@@ -50,5 +50,16 @@ namespace Controller.Controller {
                 }
             }
         }
+
+        public void ListAll() {
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string(' ', 16) + "Albums");
+            Console.WriteLine(new string('-', 40));
+            var albums = GetAll();
+            foreach (var album in albums) {
+                Console.WriteLine(album.ToString()); // TODO: add BandName + { album.Band?.Name}");
+            }
+            Console.WriteLine(new string('-', 40));
+        }
     }
 }

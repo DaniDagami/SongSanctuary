@@ -11,9 +11,9 @@ namespace SongSanctuary {
         public UI() {
             Input();
         }
-        public void Menu() {
+        public void ShowCommands() {
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 18) + "MENU");
+            Console.WriteLine(new string(' ', 18) + "Commands");
             Console.WriteLine(new string('-', 40));
             Console.WriteLine("1. Songs");
             Console.WriteLine("2. Albums");
@@ -25,7 +25,7 @@ namespace SongSanctuary {
         private void Input() {
             var operation = -1;
             do {
-                Menu();
+                ShowCommands();
                 operation = int.Parse(Console.ReadLine());
                 Console.Clear();
                 switch(operation) {

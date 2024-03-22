@@ -18,12 +18,12 @@ namespace SongSanctuary.View {
         private void Input() {
             var operation = -1;
             do {
-                ShowMenu();
+                ShowCommands();
                 operation = int.Parse(Console.ReadLine());
                 Console.Clear();
                 switch (operation) {
                     case 1:
-                        ListAll();
+                        _songController.ListAll();
                         break;
                     case 2:
                         Add();
@@ -45,7 +45,7 @@ namespace SongSanctuary.View {
         }
 
 
-        private void ListAll() {
+        /*private void ListAll() {
             AlbumController albumController = new AlbumController();
             var songs = _songController.GetAll();
 
@@ -57,7 +57,8 @@ namespace SongSanctuary.View {
                 Album? album = albumController.Get(song.AlbumId);
                 Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
             }
-        }
+            Console.WriteLine(new string('-', 40));
+        }*/
 
 
         private void Add() {
@@ -79,6 +80,7 @@ namespace SongSanctuary.View {
 
             if (answer.ToUpper() == "Y") {
                 AlbumController albumController = new AlbumController();
+                albumController.ListAll(); // lists all albums so you can choose
                 Console.WriteLine("Enter album ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int albumId))
                     Console.WriteLine("Invalid input. Song will not be associated with any album.");
@@ -134,6 +136,7 @@ namespace SongSanctuary.View {
 
                 Album? album = albumController.Get(song?.AlbumId);
                 Console.WriteLine(album == null ? song?.ToString() : song?.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+                Console.WriteLine(new string('-', 40));
             } else {
                 Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
@@ -154,9 +157,9 @@ namespace SongSanctuary.View {
             }
         }
 
-        private void ShowMenu() {
+        private void ShowCommands() {
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 18) + "MENU");
+            Console.WriteLine(new string(' ', 18) + "Commands");
             Console.WriteLine(new string('-', 40));
             Console.WriteLine("1. List all entries");
             Console.WriteLine("2. Add new entry");
@@ -164,6 +167,7 @@ namespace SongSanctuary.View {
             Console.WriteLine("4. Fetch entry by ID");
             Console.WriteLine("5. Delete entry by ID");
             Console.WriteLine("6. Exit");
+            Console.WriteLine(new string('-', 40));
         }
     }
 }
