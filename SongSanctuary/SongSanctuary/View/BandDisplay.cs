@@ -102,7 +102,7 @@ namespace SongSanctuary.View {
                 Band? band = _bandController.Get(id);
 
                 if(band == null)
-                    Console.WriteLine("Band not found!"); // TODO: ArgumentException
+                    throw new ArgumentException("Band not found!"); // TODO: ArgumentException
 
 
                 Console.WriteLine(new string('-', 40));
@@ -113,7 +113,7 @@ namespace SongSanctuary.View {
 
                 Console.WriteLine(new string('-', 40));
             } else {
-                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentExcep    tion
+                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentExcep    tion
             }
         }
 
@@ -126,9 +126,9 @@ namespace SongSanctuary.View {
                     return;
                 }
                 _bandController.Delete(id);
-                Console.WriteLine("This band has been deleted!");
+                throw new ArgumentException("This band has been deleted!");
             } else {
-                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+                throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
             }
 
         }

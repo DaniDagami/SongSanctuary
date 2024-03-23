@@ -66,11 +66,11 @@ namespace SongSanctuary.View {
 
                 Console.WriteLine("Enter band ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int bandId))
-                    Console.WriteLine("Invalid input. Artist will not be associated with any band.");
+                    throw new ArgumentException("Invalid input. Artist will not be associated with any band.");
 
                 Band band = bandController.Get(bandId);
                 if (band is null)
-                    Console.WriteLine("Band not found. Artist will not be associated with any album.");
+                    throw new ArgumentException("Band not found. Artist will not be associated with any album.");
 
                 artist.BandId = bandId;
             }
@@ -81,12 +81,12 @@ namespace SongSanctuary.View {
             ArtistController.ListAll(); // show all available artists
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id)) {
-                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
 
             Artist artist = _artistController.Get(id);
             if (artist == null)
-                Console.WriteLine("Artist not found!"); // TODO: ArgumentException
+                throw new ArgumentException("Artist not found!"); // TODO: ArgumentException
 
             string info = artist.ToString();
             string title = "Current values for this artist are:";
@@ -110,11 +110,11 @@ namespace SongSanctuary.View {
 
                 Console.WriteLine("Enter band ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int bandId))
-                    Console.WriteLine("Invalid input. Artist will not be associated with any band.");
+                    throw new ArgumentException("Invalid input. Artist will not be associated with any band.");
 
                 Band band = bandController.Get(bandId);
                 if (band is null)
-                    Console.WriteLine("Band not found. Artist will not be associated with any album.");
+                    throw new ArgumentException("Band not found. Artist will not be associated with any album.");
 
                 artist.BandId = bandId;
             }
@@ -127,12 +127,12 @@ namespace SongSanctuary.View {
 
             Console.WriteLine("Enter ID to fetch:");
             if (!int.TryParse(Console.ReadLine(), out int id)) {
-                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
 
             Artist? artist = _artistController.Get(id);
             if (artist == null)
-                Console.WriteLine("Artist not found!"); // TODO: ArgumentException
+                throw new ArgumentException("Artist not found!"); // TODO: ArgumentException
 
             Band? band = bandController.Get(artist.BandId);
             string info = artist.ToString();
@@ -147,13 +147,12 @@ namespace SongSanctuary.View {
             if (int.TryParse(Console.ReadLine(), out int id)) {
                 Artist artist = _artistController.Get(id);
                 if (artist == null) {
-                    Console.WriteLine("Artist was not found!");
-                    return;
+                    throw new ArgumentException("Artist was not found!");
                 }
                 _artistController.Delete(id);
                 Console.WriteLine("This song has been deleted!");
             } else {
-                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+                throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
             }
 
         }

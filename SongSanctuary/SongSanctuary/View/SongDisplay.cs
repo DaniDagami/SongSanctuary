@@ -130,7 +130,7 @@ namespace SongSanctuary.View {
             Song? song = _songController.Get(id);
 
             if (song == null)
-                Console.WriteLine("Song not found!"); // TODO: ArgumentException
+                throw new ArgumentException("Song not found!"); // TODO: ArgumentException
 
             Album? album = albumController.Get(song.AlbumId);
             string info = album.ToString();

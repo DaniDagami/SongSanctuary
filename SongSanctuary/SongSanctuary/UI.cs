@@ -21,31 +21,38 @@ namespace SongSanctuary {
             Console.WriteLine("4. Bands");
             Console.WriteLine("5. Exit");
         }
-    
+
         private void Input() {
             var operation = -1;
             do {
-                ShowCommands();
-                operation = int.Parse(Console.ReadLine());
-                Console.Clear();
-                switch(operation) {
-                    case 1:
-                        SongDisplay songDisplay = new SongDisplay();
-                        break;
-                    case 2:
-                        AlbumDisplay albumDisplay = new AlbumDisplay();
-                        break;
-                    case 3:
-                        ArtistDisplay artistDispay = new ArtistDisplay();
-                        break;
-                    case 4:
-                        BandDisplay bandDispay = new BandDisplay();
-                        break;
-                    case 5:
+                try {
+                    ShowCommands();
+                    operation = int.Parse(Console.ReadLine());
+                    Console.Clear();
+                    switch(operation) {
+                        case 1:
+                            SongDisplay songDisplay = new SongDisplay();
+                            break;
+                        case 2:
+                            AlbumDisplay albumDisplay = new AlbumDisplay();
+                            break;
+                        case 3:
+                            ArtistDisplay artistDispay = new ArtistDisplay();
+                            break;
+                        case 4:
+                            BandDisplay bandDispay = new BandDisplay();
+                            break;
+                        case 5:
 
-                        break;
+                            break;
+                    }
+                } catch(ArgumentException ae) {
+                    Console.WriteLine(ae);
+                } catch(Exception e) {
+                    Console.WriteLine(e);
                 }
             } while(operation != _closeOperationId);
+
         }
     }
 }
