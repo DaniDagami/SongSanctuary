@@ -46,18 +46,20 @@ namespace SongSanctuary.View {
 
         private void Add() {
             Song song = new Song();
+
             Console.WriteLine("Enter name: ");
             song.Name = Console.ReadLine();
+
             Console.WriteLine("Enter duration (format: mm:ss): ");
             string lengthInput = Console.ReadLine();
 
-            if (!TimeSpan.TryParse(lengthInput, out TimeSpan length)) {
+            if (!TimeSpan.TryParse(lengthInput, out TimeSpan length))
                 throw new ArgumentException("Invalid length format. Song length will be set to default (0).");
-            }
-            song.Length = length; // if parsed successfully, sets song.Length to the parsed TimeSpan
+            song.Length = length;
 
             Console.WriteLine("Enter genre: ");
             song.Genre = Console.ReadLine();
+
             Console.WriteLine("Do you want to associate the song with an existing album? (Y/N): ");
             string answer = Console.ReadLine();
 
@@ -80,14 +82,13 @@ namespace SongSanctuary.View {
 
         private void Update() {
             SongController.ListAll(); // show all available songs
-            Console.WriteLine("Enter ID to update: ");
-            if (!int.TryParse(Console.ReadLine(), out int id)) {
-                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
-            }
 
-            Song song = _songController.Get(id);
-            if (song == null)
-                throw new ArgumentException("Song not found!"); // TODO: ArgumentException
+            Console.WriteLine("Enter ID to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+                throw new ArgumentException("Invalid input. Input should be integer.");
+
+
+            Song song = _songController.Get(id) ?? throw new ArgumentException("Song not found!");
 
             string info = song.ToString();
             string title = "Current values for this song are:";
@@ -95,10 +96,13 @@ namespace SongSanctuary.View {
 
             Console.WriteLine("Enter name: ");
             song.Name = Console.ReadLine();
+
             Console.WriteLine("Enter duration (format: mm:ss): ");
             song.Length = TimeSpan.Parse(Console.ReadLine());
+
             Console.WriteLine("Enter genre: ");
             song.Genre = Console.ReadLine();
+
             Console.WriteLine("Do you want to associate the song with an existing album? (Y/N): ");
             string answer = Console.ReadLine();
 
@@ -124,13 +128,11 @@ namespace SongSanctuary.View {
             string title = "Song";
 
             Console.WriteLine("Enter ID to fetch:");
-            if (!int.TryParse(Console.ReadLine(), out int id)) {
-                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
-            }
-            Song? song = _songController.Get(id);
+            if (!int.TryParse(Console.ReadLine(), out int id))
+                throw new ArgumentException("Invalid input. Input should be integer.");
 
-            if (song == null)
-                throw new ArgumentException("Song not found!"); // TODO: ArgumentException
+
+            Song? song = _songController.Get(id) ?? throw new ArgumentException("Song not found!");
 
             Album? album = albumController.Get(song.AlbumId);
             string info = album.ToString();
@@ -142,17 +144,13 @@ namespace SongSanctuary.View {
 
         private void Delete() {
             Console.WriteLine("Enter ID to delete: ");
-            if (int.TryParse(Console.ReadLine(), out int id)) {
-                Song song = _songController.Get(id);
-                if (song == null) {
-                    throw new ArgumentException("Song was not found!");                 
-                }
-                _songController.Delete(id);
-                Console.WriteLine("This song has been deleted!");
-            } else {
+            if (!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
-            }
 
+            Song song = _songController.Get(id) ?? throw new ArgumentException("Song was not found!");
+
+            _songController.Delete(id);
+            Console.WriteLine("This song has been deleted!");
         }
     }
 }
