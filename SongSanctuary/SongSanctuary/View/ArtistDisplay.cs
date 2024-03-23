@@ -35,7 +35,7 @@ namespace SongSanctuary.View {
                         Fetch();
                         break;
                     case 5:
-                        //Delete();
+                        Delete();
                         break;
                     default:
                         break;
@@ -129,6 +129,22 @@ namespace SongSanctuary.View {
             int maxCharacterLength = info.Length;
 
             ShowHeader(maxCharacterLength, info, title);
+        }
+
+        private void Delete() {
+            Console.WriteLine("Enter ID to delete: ");
+            if (int.TryParse(Console.ReadLine(), out int id)) {
+                Artist artist = _artistController.Get(id);
+                if (artist == null) {
+                    Console.WriteLine("Artist was not found!");
+                    return;
+                }
+                _artistController.Delete(id);
+                Console.WriteLine("This song has been deleted!");
+            } else {
+                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+            }
+
         }
     }
 }

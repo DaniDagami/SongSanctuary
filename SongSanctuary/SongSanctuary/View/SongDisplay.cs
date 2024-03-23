@@ -155,6 +155,5 @@ namespace SongSanctuary.View {
             }
 
         }
-
     }
 }
