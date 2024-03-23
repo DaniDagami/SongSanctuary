@@ -81,6 +81,7 @@ namespace SongSanctuary.View {
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Input should be integer.");
+            Console.Clear();
 
             Album album = _albumController.Get(id) ?? throw new ArgumentException("Album not found!");
 
@@ -141,12 +142,17 @@ namespace SongSanctuary.View {
         }
 
         private void Delete() {
+            _albumController.ListAll();
             Console.WriteLine("Enter ID to delete: ");
-            int id = int.Parse(Console.ReadLine());
+
+            if(!int.TryParse(Console.ReadLine(), out int id))
+                throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
+            Console.Clear();
+
             Album Album = _albumController.Get(id) ?? throw new ArgumentException("Album was not found!");
 
             _albumController.Delete(id);
-            Console.WriteLine("This Album has been deleted!");
+            Console.WriteLine("This album has been deleted!");
         }
     }
 }

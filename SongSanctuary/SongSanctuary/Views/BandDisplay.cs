@@ -70,6 +70,7 @@ namespace SongSanctuary.View {
             Console.WriteLine("Enter ID to update:");
             if(!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid number format.");
+            Console.Clear();
 
             Band band = _bandController.Get(id) ?? throw new ArgumentException("Band not found!");
 
@@ -117,14 +118,19 @@ namespace SongSanctuary.View {
         }
 
         private void Delete() {
+            _bandController.ListAll();
+
             Console.WriteLine("Enter ID to delete: ");
+
             if(!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
+
+            Console.Clear();
 
             Band band = _bandController.Get(id) ?? throw new ArgumentException("Band not found!");
 
             _bandController.Delete(id);
-            throw new ArgumentException("This band has been deleted!");
+            Console.WriteLine("This band has been deleted!");
         }
     }
 }
