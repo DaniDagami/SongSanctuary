@@ -49,7 +49,7 @@ namespace SongSanctuary.View {
             Artist artist = new Artist();
 
             Console.WriteLine("Enter first name: ");
-            artist.FullName = Console.ReadLine();
+            artist.FirstName = Console.ReadLine();
 
             Console.WriteLine("Enter last name: ");
             artist.LastName = Console.ReadLine();
@@ -91,7 +91,7 @@ namespace SongSanctuary.View {
             ShowHeader(info.Length, info, title);
 
             Console.WriteLine("Enter first name: ");
-            artist.FullName = Console.ReadLine();
+            artist.FirstName = Console.ReadLine();
 
             Console.WriteLine("Enter last name: ");
             artist.LastName = Console.ReadLine();
