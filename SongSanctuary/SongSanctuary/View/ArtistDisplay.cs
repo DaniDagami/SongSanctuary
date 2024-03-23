@@ -105,7 +105,18 @@ namespace SongSanctuary.View {
             Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
             string answerBandId = Console.ReadLine().ToUpper();
             if (answerBandId == "Y") {
-                artist.BandId = int.Parse(Console.ReadLine());
+                BandController bandController = new BandController();
+                BandController.ListAll(); // lists all bands so you can choose
+
+                Console.WriteLine("Enter band ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int bandId))
+                    Console.WriteLine("Invalid input. Artist will not be associated with any band.");
+
+                Band band = bandController.Get(bandId);
+                if (band is null)
+                    Console.WriteLine("Band not found. Artist will not be associated with any album.");
+
+                artist.BandId = bandId;
             }
             _artistController.Update(artist);
         }
