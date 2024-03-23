@@ -29,7 +29,7 @@ namespace SongSanctuary.View {
                         Add();
                         break;
                     case 3:
-                        //Update();
+                        Update();
                         break;
                     case 4:
                         //Fetch();
@@ -66,6 +66,40 @@ namespace SongSanctuary.View {
             _artistController.Add(artist);
         }
 
+        private void Update() {
+            ArtistController.ListAll(); // show all available artists
+            Console.WriteLine("Enter ID to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int id)) {
+                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+            }
+
+            Artist artist = _artistController.Get(id);
+            if (artist == null)
+                Console.WriteLine("Artist not found!"); // TODO: ArgumentException
+
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string(' ', 8) + "Current values for this artist are: ");
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(artist.ToString());
+            Console.WriteLine(new string('-', 40));
+
+            Console.WriteLine("Enter first name: ");
+            artist.FullName = Console.ReadLine();
+
+            Console.WriteLine("Enter last name: ");
+            artist.LastName = Console.ReadLine();
+
+            Console.WriteLine("Alive? Y for yes/ N for no: ");
+            string answerAlive = Console.ReadLine().ToUpper();
+            artist.Alive = answerAlive == "Y" ? true : false;
+
+            Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
+            string answerBandId = Console.ReadLine().ToUpper();
+            if (answerBandId == "Y") {
+                artist.BandId = int.Parse(Console.ReadLine());
+            }
+            _artistController.Update(artist);
+        }
 
     }
 }

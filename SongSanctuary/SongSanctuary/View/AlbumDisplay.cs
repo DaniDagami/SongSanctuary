@@ -71,8 +71,12 @@ namespace SongSanctuary.View {
             if (album == null)
                 Console.WriteLine("Album not found!"); // TODO: ArgumentException
 
-            Console.WriteLine("Current value for this album are:");
+            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(new string(' ', 8) + "Current values for this album are: ");
+            Console.WriteLine(new string('-', 40));
             Console.WriteLine(album.ToString());
+            Console.WriteLine(new string('-', 40));
+            
             Console.WriteLine("Enter name: ");
             album.Name = Console.ReadLine();
             Console.WriteLine("Enter release year: ");

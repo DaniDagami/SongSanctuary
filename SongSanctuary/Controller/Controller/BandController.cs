@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 namespace Controller.Controller {
     public class BandController : Controller {
         public static List<Band> GetAll() {
-            using(_appContext = new ApplicationDbContext()) {
+            using (_appContext = new ApplicationDbContext()) {
                 return _appContext.Bands.ToList();
             }
         }
 
         public Band Get(int id) {
-            using(_appContext = new ApplicationDbContext()) {
+            using (_appContext = new ApplicationDbContext()) {
                 return _appContext.Bands.Find(id);
             }
         }
 
         public void Add(Band Band) {
-            using(_appContext = new ApplicationDbContext()) {
+            using (_appContext = new ApplicationDbContext()) {
                 _appContext.Bands.Add(Band);
                 _appContext.SaveChanges();
             }
         }
 
         public void Update(Band Band) {
-            using(_appContext = new ApplicationDbContext()) {
+            using (_appContext = new ApplicationDbContext()) {
                 var item = _appContext.Bands.Find(Band.Id);
-                if(item != null) {
+                if (item != null) {
                     _appContext.Entry(item).CurrentValues.SetValues(Band);
                     _appContext.SaveChanges();
                 }
@@ -38,9 +38,9 @@ namespace Controller.Controller {
         }
 
         public void Delete(int id) {
-            using(_appContext = new ApplicationDbContext()) {
+            using (_appContext = new ApplicationDbContext()) {
                 var product = _appContext.Bands.Find(id);
-                if(product != null) {
+                if (product != null) {
                     _appContext.Bands.Remove(product);
                     _appContext.SaveChanges();
                 }
@@ -48,14 +48,21 @@ namespace Controller.Controller {
         }
 
         public static void ListAll() {
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 16) + "Bands");
-            Console.WriteLine(new string('-', 40));
-            var bands = GetAll();
-            foreach (var band in bands) {
-                Console.WriteLine(band.ToString()); // TODO: make a ToString()
+            using (_appContext = new ApplicationDbContext()) {
+                string type = "Bands";
+                List<Band> bands = GetAll();
+                List<string> bandInfos = bands.Select(a => a.ToString()).ToList();
+
+                // print info relative to the longest band info string
+                int maxInfoCharacterLength = bandInfos.Max(a => a.Length);
+                Console.WriteLine(new string('-', maxInfoCharacterLength));
+                Console.WriteLine(new string(' ', (maxInfoCharacterLength - type.Length) / 2) + type);
+                Console.WriteLine(new string('-', maxInfoCharacterLength));
+
+                bandInfos.ForEach(x => Console.WriteLine(x.ToString()));
+
+                Console.WriteLine(new string('-', maxInfoCharacterLength));
             }
-            Console.WriteLine(new string('-', 40));
         }
     }
 }

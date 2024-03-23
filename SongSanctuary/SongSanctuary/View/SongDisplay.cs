@@ -132,8 +132,9 @@ namespace SongSanctuary.View {
                 Console.WriteLine(new string(' ', 16) + "Song");
                 Console.WriteLine(new string('-', 40));
 
-                Album? album = albumController.Get(song?.AlbumId);
-                Console.WriteLine(album == null ? song?.ToString() : song?.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+                Album? album = albumController.Get(song.AlbumId);
+                Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+                
                 Console.WriteLine(new string('-', 40));
             } else {
                 Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
@@ -153,6 +154,8 @@ namespace SongSanctuary.View {
             } else {
                 Console.WriteLine("Invalid input. Please enter a valid integer ID.");
             }
+
         }
+        
     }
 }
