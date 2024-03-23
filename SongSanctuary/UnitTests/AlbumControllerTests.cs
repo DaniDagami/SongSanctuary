@@ -28,7 +28,7 @@ namespace UnitTests {
 
             int id = 1;
 
-            var result = _albumController.Get(id);
+            Album result = _albumController.Get(id);
 
             Assert.NotNull(result);
             Assert.IsInstanceOf<Album>(result);

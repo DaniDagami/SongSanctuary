@@ -38,11 +38,9 @@ namespace SongSanctuary.View {
                         break;
                     default:
                         break;
-
                 }
             } while (operation != closeOperationId);
         }
-
 
         private void Add() {
             Song song = new Song();
@@ -134,7 +132,7 @@ namespace SongSanctuary.View {
                 throw new ArgumentException("Invalid input. Input should be integer.");
             Console.Clear();
 
-            Song? song = _songController.Get(id) ?? throw new ArgumentException("Song not found!");
+            Song song = _songController.Get(id) ?? throw new ArgumentException("Song not found!");
 
             Album? album = albumController.Get(song.AlbumId);
             string info = song.ToString();
