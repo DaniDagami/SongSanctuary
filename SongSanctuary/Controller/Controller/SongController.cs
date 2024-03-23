@@ -69,9 +69,7 @@ namespace Controller.Controller {
         private static string GetSongInfo(Song song, AlbumController albumController) {
             Album? album = albumController.Get(song.AlbumId);
             string info = song.ToString();
-            info += album == null ?
-                $", AlbumId: N/A, AlbumName: N/A"
-                : $", AlbumId: {album.Id}, AlbumName: {album.Name}";
+            info += album == null ? $", Album Name: N/A" : $", Album Name: {album.Name}";
             return info;
         }
     }
