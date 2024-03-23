@@ -83,7 +83,7 @@ namespace SongSanctuary.View {
             string answerActive = Console.ReadLine().ToUpper();
             band.Active = answerActive == "Y";
 
-
+            Console.WriteLine("Enter member count: ");
             string memberCount = Console.ReadLine();
             if(!int.TryParse(memberCount, out int members)) {
                 throw new ArgumentException("Invalid number format. The count of members will be set to default (0).");
@@ -109,7 +109,7 @@ namespace SongSanctuary.View {
                 Console.WriteLine(new string(' ', 16) + "Band");
                 Console.WriteLine(new string('-', 40));
 
-                //Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+                Console.WriteLine(band.ToString());
 
                 Console.WriteLine(new string('-', 40));
             } else {

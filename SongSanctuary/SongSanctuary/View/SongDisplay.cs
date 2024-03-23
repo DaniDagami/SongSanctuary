@@ -52,7 +52,7 @@ namespace SongSanctuary.View {
             string lengthInput = Console.ReadLine();
 
             if (!TimeSpan.TryParse(lengthInput, out TimeSpan length)) {
-                Console.WriteLine("Invalid length format. Song length will be set to default (0).");
+                throw new ArgumentException("Invalid length format. Song length will be set to default (0).");
             }
             song.Length = length; // if parsed successfully, sets song.Length to the parsed TimeSpan
 
@@ -66,11 +66,11 @@ namespace SongSanctuary.View {
                 AlbumController.ListAll(); // lists all albums so you can choose
                 Console.WriteLine("Enter album ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int albumId))
-                    Console.WriteLine("Invalid input. Song will not be associated with any album.");
+                    throw new ArgumentException("Invalid input. Song will not be associated with any album.");
 
                 Album album = albumController.Get(albumId);
                 if (album == null)
-                    Console.WriteLine("Album not found. Song will not be associated with any album.");
+                    throw new ArgumentException("Album not found. Song will not be associated with any album.");
 
                 song.AlbumId = albumId;
             }
@@ -82,12 +82,12 @@ namespace SongSanctuary.View {
             SongController.ListAll(); // show all available songs
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id)) {
-                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
 
             Song song = _songController.Get(id);
             if (song == null)
-                Console.WriteLine("Song not found!"); // TODO: ArgumentException
+                throw new ArgumentException("Song not found!"); // TODO: ArgumentException
 
             string info = song.ToString();
             string title = "Current values for this song are:";
@@ -107,11 +107,11 @@ namespace SongSanctuary.View {
                 AlbumController.ListAll(); // lists all albums so you can choose
                 Console.WriteLine("Enter album ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int albumId))
-                    Console.WriteLine("Invalid input. Song will not be associated with any album.");
+                    throw new ArgumentException("Invalid input. Song will not be associated with any album.");
 
                 Album album = albumController.Get(albumId);
                 if (album == null)
-                    Console.WriteLine("Album not found. Song will not be associated with any album.");
+                    throw new ArgumentException("Album not found. Song will not be associated with any album.");
 
                 song.AlbumId = albumId;
             }
@@ -125,7 +125,7 @@ namespace SongSanctuary.View {
 
             Console.WriteLine("Enter ID to fetch:");
             if (!int.TryParse(Console.ReadLine(), out int id)) {
-                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
             Song? song = _songController.Get(id);
 
@@ -145,13 +145,12 @@ namespace SongSanctuary.View {
             if (int.TryParse(Console.ReadLine(), out int id)) {
                 Song song = _songController.Get(id);
                 if (song == null) {
-                    Console.WriteLine("Song was not found!");
-                    return;
+                    throw new ArgumentException("Song was not found!");                 
                 }
                 _songController.Delete(id);
                 Console.WriteLine("This song has been deleted!");
             } else {
-                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+                throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
             }
 
         }
