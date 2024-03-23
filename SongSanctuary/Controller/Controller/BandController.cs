@@ -14,9 +14,9 @@ namespace Controller.Controller {
             }
         }
 
-        public Band Get(int id) {
+        public Band? Get(int? id) {
             using (_appContext = new ApplicationDbContext()) {
-                return _appContext.Bands.Find(id);
+                return _appContext.Bands.FirstOrDefault(x => x.Id == id);
             }
         }
 

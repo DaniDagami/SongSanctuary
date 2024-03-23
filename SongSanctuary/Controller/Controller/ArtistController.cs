@@ -49,9 +49,10 @@ namespace Controller.Controller {
 
         public static void ListAll() {
             using (_appContext = new ApplicationDbContext()) {
+                BandController bandController = new BandController();
                 string type = "Artists";
                 List<Artist> artists = GetAll();
-                List<string> artistInfos = artists.Select(a => a.ToString()).ToList();
+                List<string> artistInfos = artists.Select(a => GetArtistInfo(a, bandController)).ToList();
 
                 // print info relative to the longest artist info string
                 int maxInfoCharacterLength = artistInfos.Max(a => a.Length);
@@ -59,10 +60,17 @@ namespace Controller.Controller {
                 Console.WriteLine(new string(' ', (maxInfoCharacterLength - type.Length) / 2) + type);
                 Console.WriteLine(new string('-', maxInfoCharacterLength));
 
-                artistInfos.ForEach(x => Console.WriteLine(x.ToString()));// TODO: make a ToString()
+                artistInfos.ForEach(x => Console.WriteLine(x));// TODO: make a ToString()
 
                 Console.WriteLine(new string('-', maxInfoCharacterLength));
             }
+        }
+
+        private static string GetArtistInfo(Artist artist, BandController bandController) {
+            Band? band = bandController.Get(artist.BandId);
+            string info = artist.ToString();
+            info += band == null ? $", Band Name: N/A" : $", Band Name: {band.Name}";
+            return info;
         }
     }
 }

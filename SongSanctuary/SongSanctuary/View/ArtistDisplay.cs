@@ -32,10 +32,10 @@ namespace SongSanctuary.View {
                         Update();
                         break;
                     case 4:
-                        //Fetch();
+                        Fetch();
                         break;
                     case 5:
-                        //Delete();
+                        Delete();
                         break;
                     default:
                         break;
@@ -49,7 +49,7 @@ namespace SongSanctuary.View {
             Artist artist = new Artist();
 
             Console.WriteLine("Enter first name: ");
-            artist.FullName = Console.ReadLine(); 
+            artist.FullName = Console.ReadLine();
 
             Console.WriteLine("Enter last name: ");
             artist.LastName = Console.ReadLine();
@@ -61,7 +61,18 @@ namespace SongSanctuary.View {
             Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
             string answerBandId = Console.ReadLine().ToUpper();
             if (answerBandId == "Y") {
-                artist.BandId = int.Parse(Console.ReadLine());
+                BandController bandController = new BandController();
+                BandController.ListAll(); // lists all bands so you can choose
+
+                Console.WriteLine("Enter band ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int bandId))
+                    Console.WriteLine("Invalid input. Artist will not be associated with any band.");
+
+                Band band = bandController.Get(bandId);
+                if (band is null)
+                    Console.WriteLine("Band not found. Artist will not be associated with any album.");
+
+                artist.BandId = bandId;
             }
             _artistController.Add(artist);
         }
@@ -77,11 +88,9 @@ namespace SongSanctuary.View {
             if (artist == null)
                 Console.WriteLine("Artist not found!"); // TODO: ArgumentException
 
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 8) + "Current values for this artist are: ");
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine(artist.ToString());
-            Console.WriteLine(new string('-', 40));
+            string info = artist.ToString();
+            string title = "Current values for this artist are:";
+            ShowHeader(info.Length, info, title);
 
             Console.WriteLine("Enter first name: ");
             artist.FullName = Console.ReadLine();
@@ -96,11 +105,58 @@ namespace SongSanctuary.View {
             Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
             string answerBandId = Console.ReadLine().ToUpper();
             if (answerBandId == "Y") {
-                artist.BandId = int.Parse(Console.ReadLine());
+                BandController bandController = new BandController();
+                BandController.ListAll(); // lists all bands so you can choose
+
+                Console.WriteLine("Enter band ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int bandId))
+                    Console.WriteLine("Invalid input. Artist will not be associated with any band.");
+
+                Band band = bandController.Get(bandId);
+                if (band is null)
+                    Console.WriteLine("Band not found. Artist will not be associated with any album.");
+
+                artist.BandId = bandId;
             }
             _artistController.Update(artist);
         }
 
+        private void Fetch() {
+            BandController bandController = new BandController();
+            string title = "Artists";
+
+            Console.WriteLine("Enter ID to fetch:");
+            if (!int.TryParse(Console.ReadLine(), out int id)) {
+                Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
+            }
+
+            Artist? artist = _artistController.Get(id);
+            if (artist == null)
+                Console.WriteLine("Artist not found!"); // TODO: ArgumentException
+
+            Band? band = bandController.Get(artist.BandId);
+            string info = artist.ToString();
+            info += band is null ? $", Band Name: N/A" : $", Band Name: {band?.Name}";
+            int maxCharacterLength = info.Length;
+
+            ShowHeader(maxCharacterLength, info, title);
+        }
+
+        private void Delete() {
+            Console.WriteLine("Enter ID to delete: ");
+            if (int.TryParse(Console.ReadLine(), out int id)) {
+                Artist artist = _artistController.Get(id);
+                if (artist == null) {
+                    Console.WriteLine("Artist was not found!");
+                    return;
+                }
+                _artistController.Delete(id);
+                Console.WriteLine("This song has been deleted!");
+            } else {
+                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+            }
+
+        }
     }
 }
 

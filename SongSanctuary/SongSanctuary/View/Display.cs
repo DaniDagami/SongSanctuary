@@ -19,5 +19,13 @@ namespace SongSanctuary.View {
             Console.WriteLine("6. Return");
             Console.WriteLine(new string('-', 40));
         }
+
+        protected static void ShowHeader(int maxCharacterLength, string info, string title) {
+            Console.WriteLine(new string('-', maxCharacterLength));
+            Console.WriteLine(new string(' ', (maxCharacterLength - title.Length) / 2) + title);
+            Console.WriteLine(new string('-', maxCharacterLength));
+            Console.WriteLine(info);
+            Console.WriteLine(new string('-', maxCharacterLength));
+        }
     }
 }

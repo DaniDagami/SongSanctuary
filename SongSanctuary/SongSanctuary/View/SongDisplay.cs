@@ -71,7 +71,6 @@ namespace SongSanctuary.View {
                 Album album = albumController.Get(albumId);
                 if (album == null)
                     Console.WriteLine("Album not found. Song will not be associated with any album.");
-                else album.Songs.Add(song);
 
                 song.AlbumId = albumId;
             }
@@ -90,8 +89,10 @@ namespace SongSanctuary.View {
             if (song == null)
                 Console.WriteLine("Song not found!"); // TODO: ArgumentException
 
-            Console.WriteLine("Current value for this album are:");
-            Console.WriteLine(song.ToString());
+            string info = song.ToString();
+            string title = "Current values for this song are:";
+            ShowHeader(info.Length, info, title);
+
             Console.WriteLine("Enter name: ");
             song.Name = Console.ReadLine();
             Console.WriteLine("Enter duration (format: mm:ss): ");
@@ -119,27 +120,24 @@ namespace SongSanctuary.View {
 
 
         private void Fetch() {
-            Console.WriteLine("Enter ID to fetch:");
             AlbumController albumController = new AlbumController();
+            string title = "Song";
 
-            if (int.TryParse(Console.ReadLine(), out int id)) {
-                Song? song = _songController.Get(id);
-
-                if (song == null)
-                    Console.WriteLine("Song not found!"); // TODO: ArgumentException
-
-
-                Console.WriteLine(new string('-', 60));
-                Console.WriteLine(new string(' ', 30) + "Song");
-                Console.WriteLine(new string('-', 60));
-
-                Album? album = albumController.Get(song.AlbumId);
-                Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
-                
-                Console.WriteLine(new string('-', 40));
-            } else {
+            Console.WriteLine("Enter ID to fetch:");
+            if (!int.TryParse(Console.ReadLine(), out int id)) {
                 Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
             }
+            Song? song = _songController.Get(id);
+
+            if (song == null)
+                Console.WriteLine("Song not found!"); // TODO: ArgumentException
+
+            Album? album = albumController.Get(song.AlbumId);
+            string info = album.ToString();
+            info += album is null ? $", Album Name: N/A" : $", Album Name: {album?.Name}";
+            int maxCharacterLength = info.Length;
+
+            ShowHeader(maxCharacterLength, info, title);
         }
 
         private void Delete() {
@@ -157,6 +155,5 @@ namespace SongSanctuary.View {
             }
 
         }
-        
     }
 }
