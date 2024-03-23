@@ -135,7 +135,7 @@ namespace SongSanctuary.View {
             Song? song = _songController.Get(id) ?? throw new ArgumentException("Song not found!");
 
             Album? album = albumController.Get(song.AlbumId);
-            string info = album.ToString();
+            string info = song.ToString();
             info += album is null ? $", Album Name: N/A" : $", Album Name: {album?.Name}";
             int maxCharacterLength = info.Length;
 
