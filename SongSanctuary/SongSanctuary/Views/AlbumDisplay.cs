@@ -1,4 +1,5 @@
 ﻿using Controller.Controller;
+using Controller.Interfaces;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace SongSanctuary.View {
                 Console.Clear();
                 switch(operation) {
                     case 1:
-                        AlbumController.ListAll();
+                        _albumController.ListAll();
                         break;
                     case 2:
                         Add();
@@ -61,7 +62,7 @@ namespace SongSanctuary.View {
         }
 
         private void Update() {
-            AlbumController.ListAll(); // show all available albums
+            _albumController.ListAll(); // show all available albums
             Console.WriteLine("Enter ID to update: ");
             if(!int.TryParse(Console.ReadLine(), out int id)) {
                 throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
@@ -117,7 +118,6 @@ namespace SongSanctuary.View {
                 Console.WriteLine(new string('-', 40));
 
                 List<Song> albumSongs = SongController.GetAll().Where(x => x.AlbumId == id).ToList();
-                int maxLenght = albumSongs.Max(x => x.ToString().Length).ToString().Length;
 
                 foreach(var song in albumSongs) {
                     Console.WriteLine(song.ToString() + $", {album.Name}");

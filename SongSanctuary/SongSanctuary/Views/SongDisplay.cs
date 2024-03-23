@@ -63,7 +63,7 @@ namespace SongSanctuary.View {
 
             if (answer.ToUpper() == "Y") {
                 AlbumController albumController = new AlbumController();
-                AlbumController.ListAll(); // lists all albums so you can choose
+                albumController.ListAll(); // lists all albums so you can choose
                 Console.WriteLine("Enter album ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int albumId))
                     throw new ArgumentException("Invalid input. Song will not be associated with any album.");
@@ -104,7 +104,7 @@ namespace SongSanctuary.View {
 
             if (answer.ToUpper() == "Y") {
                 AlbumController albumController = new AlbumController();
-                AlbumController.ListAll(); // lists all albums so you can choose
+                albumController.ListAll(); // lists all albums so you can choose
                 Console.WriteLine("Enter album ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int albumId))
                     throw new ArgumentException("Invalid input. Song will not be associated with any album.");
