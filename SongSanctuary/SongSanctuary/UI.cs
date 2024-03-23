@@ -12,14 +12,15 @@ namespace SongSanctuary {
             Input();
         }
         public void ShowCommands() {
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine(new string(' ', 18) + "Commands");
-            Console.WriteLine(new string('-', 40));
-            Console.WriteLine("1. Songs");
-            Console.WriteLine("2. Albums");
-            Console.WriteLine("3. Artists");
-            Console.WriteLine("4. Bands");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine(new string('-', 21));
+            Console.WriteLine(new string(' ', 6) + "Commands");
+            Console.WriteLine(new string('-', 21));
+            Console.WriteLine(new string(' ', 5) + "1. Songs");
+            Console.WriteLine(new string(' ', 5) + "2. Albums");
+            Console.WriteLine(new string(' ', 5) + "3. Artists");
+            Console.WriteLine(new string(' ', 5) + "4. Bands");
+            Console.WriteLine(new string(' ', 5) + "5. Exit");
+            Console.WriteLine(new string('-', 21));
         }
 
         private void Input() {
@@ -29,7 +30,7 @@ namespace SongSanctuary {
                     ShowCommands();
                     operation = int.Parse(Console.ReadLine());
                     Console.Clear();
-                    switch(operation) {
+                    switch (operation) {
                         case 1:
                             SongDisplay songDisplay = new SongDisplay();
                             break;
@@ -46,12 +47,14 @@ namespace SongSanctuary {
 
                             break;
                     }
-                } catch(ArgumentException ae) {
+                }
+                catch (ArgumentException ae) {
                     Console.WriteLine(ae);
-                } catch(Exception e) {
+                }
+                catch (Exception e) {
                     Console.WriteLine(e);
                 }
-            } while(operation != _closeOperationId);
+            } while (operation != _closeOperationId);
 
         }
     }
