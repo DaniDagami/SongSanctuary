@@ -41,6 +41,9 @@ namespace SongSanctuary {
                     case 4:
                         BandDisplay bandDispay = new BandDisplay();
                         break;
+                    case 5:
+
+                        break;
                 }
             } while(operation != _closeOperationId);
         }

@@ -113,17 +113,18 @@ namespace SongSanctuary.View {
                 if (album == null)
                     Console.WriteLine("Album not found!"); // TODO: ArgumentException
 
-                Console.WriteLine(new string('-', 40));
-                Console.WriteLine(new string(' ', 16) + "Album");
-                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string('-', 60));
+                Console.WriteLine(new string(' ', 20) + $"{album.Name}");
+                Console.WriteLine(new string('-', 60));
                 
                 List<Song> albumSongs = SongController.GetAll().Where(x => x.AlbumId == id).ToList();
 
+
                 foreach (var song in albumSongs) {
-                    Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
+                    Console.WriteLine(song.ToString());
                 }
 
-                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string('-', 60));
             } else {
                 Console.WriteLine("Invalid input. Input should be integer."); // TODO: ArgumentException
             }

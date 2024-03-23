@@ -16,7 +16,7 @@ namespace SongSanctuary.View {
             Console.WriteLine("3. Update entry");
             Console.WriteLine("4. Fetch entry by ID");
             Console.WriteLine("5. Delete entry by ID");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. Return");
             Console.WriteLine(new string('-', 40));
         }
     }

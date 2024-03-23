@@ -56,7 +56,7 @@ namespace SongSanctuary.View {
 
             Console.WriteLine("Alive? Y for yes/ N for no: ");
             string answerAlive = Console.ReadLine().ToUpper();
-            artist.Alive = answerAlive == "Y" ? true : false;
+            artist.Alive = answerAlive == "Y";
 
             Console.WriteLine("Do you want to add a BandId? Y for yes/ N for no: ");
             string answerBandId = Console.ReadLine().ToUpper();

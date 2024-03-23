@@ -71,6 +71,7 @@ namespace SongSanctuary.View {
                 Album album = albumController.Get(albumId);
                 if (album == null)
                     Console.WriteLine("Album not found. Song will not be associated with any album.");
+                else album.Songs.Add(song);
 
                 song.AlbumId = albumId;
             }
@@ -128,9 +129,9 @@ namespace SongSanctuary.View {
                     Console.WriteLine("Song not found!"); // TODO: ArgumentException
 
 
-                Console.WriteLine(new string('-', 40));
-                Console.WriteLine(new string(' ', 16) + "Song");
-                Console.WriteLine(new string('-', 40));
+                Console.WriteLine(new string('-', 60));
+                Console.WriteLine(new string(' ', 30) + "Song");
+                Console.WriteLine(new string('-', 60));
 
                 Album? album = albumController.Get(song.AlbumId);
                 Console.WriteLine(album == null ? song.ToString() : song.ToString() + $", AlbumId: {album.Id}, AlbumName: {album.Name}");
