@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Model;
+using Controller.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Controller.Controller {
-    public class SongController : Controller {
-        public static List<Song> GetAll() {
+    public class SongController : Controller, ISongController {
+        public List<Song> GetAll() {
             using (_appContext = new ApplicationDbContext()) {
                 return _appContext.Songs.ToList();
             }
@@ -47,7 +48,7 @@ namespace Controller.Controller {
             }
         }
 
-        public static void ListAll() {
+        public void ListAll() {
             using (_appContext = new ApplicationDbContext()) {
                 AlbumController albumController = new AlbumController();
                 string type = "Songs";

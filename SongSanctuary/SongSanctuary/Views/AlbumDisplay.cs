@@ -62,7 +62,7 @@ namespace SongSanctuary.View {
 
             if (answer.ToUpper() == "Y") {
                 BandController bandController = new BandController();
-                BandController.ListAll();
+                bandController.ListAll();
                 Console.WriteLine("Enter band ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int bandId))
                     throw new ArgumentException("Invalid input. Album will not be associated with any band.");
@@ -77,7 +77,7 @@ namespace SongSanctuary.View {
         }
 
         private void Update() {
-            AlbumController.ListAll(); // shows all available albums
+            _albumController.ListAll(); // shows all available albums
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Input should be integer.");
@@ -102,7 +102,7 @@ namespace SongSanctuary.View {
 
             if (answer.ToUpper() == "Y") {
                 BandController bandController = new BandController();
-                BandController.ListAll();
+                bandController.ListAll();
                 Console.WriteLine("Enter band ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int bandId))
                     throw new ArgumentException("Invalid input. Album will not be associated with any band.");
@@ -118,7 +118,8 @@ namespace SongSanctuary.View {
 
         private void Fetch() {
             BandController bandController = new BandController();
-            AlbumController.ListAll(); // shows all available albums
+            SongController songController = new SongController();
+            _albumController.ListAll(); // shows all available albums
 
             Console.WriteLine("Enter ID to fetch:");
             if (!int.TryParse(Console.ReadLine(), out int id))
@@ -126,7 +127,7 @@ namespace SongSanctuary.View {
 
             Album? album = _albumController.Get(id) ?? throw new ArgumentException("Album not found!");
 
-            List<string> albumSongInfos = SongController.GetAll().Where(x => x.AlbumId == id).Select(s => s.ToString()).ToList();
+            List<string> albumSongInfos = songController.GetAll().Where(x => x.AlbumId == id).Select(s => s.ToString()).ToList();
             int maxCharacterLenght = albumSongInfos.Max(x => x.Length);
             StringBuilder info = new StringBuilder();
             foreach (var song in albumSongInfos) {

@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Controller.Interfaces;
 
 namespace Controller.Controller {
-    public class BandController : Controller {
-        public static List<Band> GetAll() {
+    public class BandController : Controller, IBandController {
+        public  List<Band> GetAll() {
             using (_appContext = new ApplicationDbContext()) {
                 return _appContext.Bands.ToList();
             }
@@ -47,7 +48,7 @@ namespace Controller.Controller {
             }
         }
 
-        public static void ListAll() {
+        public void ListAll() {
             using (_appContext = new ApplicationDbContext()) {
                 string type = "Bands";
                 List<Band> bands = GetAll();

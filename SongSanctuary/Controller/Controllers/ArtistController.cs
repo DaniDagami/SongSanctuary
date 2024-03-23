@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Controller.Interfaces;
 
 namespace Controller.Controller {
-    public class ArtistController : Controller {
-        public static List<Artist> GetAll() {
+    public class ArtistController : Controller, IArtistController {
+        public List<Artist> GetAll() {
             using (_appContext = new ApplicationDbContext()) {
                 return _appContext.Artists.ToList();
             }
@@ -47,7 +48,7 @@ namespace Controller.Controller {
             }
         }
 
-        public static void ListAll() {
+        public void ListAll() {
             using (_appContext = new ApplicationDbContext()) {
                 BandController bandController = new BandController();
                 string type = "Artists";

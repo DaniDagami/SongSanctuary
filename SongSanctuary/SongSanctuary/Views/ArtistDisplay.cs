@@ -23,7 +23,7 @@ namespace SongSanctuary.View {
                 Console.Clear();
                 switch (operation) {
                     case 1:
-                        ArtistController.ListAll();
+                        _artistController.ListAll();
                         break;
                     case 2:
                         Add();
@@ -62,7 +62,7 @@ namespace SongSanctuary.View {
             string answerBandId = Console.ReadLine().ToUpper();
             if (answerBandId == "Y") {
                 BandController bandController = new BandController();
-                BandController.ListAll(); // lists all bands so you can choose
+                bandController.ListAll(); // lists all bands so you can choose
 
                 Console.WriteLine("Enter band ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int bandId))
@@ -78,7 +78,7 @@ namespace SongSanctuary.View {
         }
 
         private void Update() {
-            ArtistController.ListAll(); // show all available artists
+            _artistController.ListAll(); // show all available artists
 
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
@@ -104,7 +104,7 @@ namespace SongSanctuary.View {
             string answerBandId = Console.ReadLine().ToUpper();
             if (answerBandId == "Y") {
                 BandController bandController = new BandController();
-                BandController.ListAll(); // lists all bands so you can choose
+                bandController.ListAll(); // lists all bands so you can choose
 
                 Console.WriteLine("Enter band ID: ");
                 if (!int.TryParse(Console.ReadLine(), out int bandId))

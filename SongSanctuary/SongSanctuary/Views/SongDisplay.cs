@@ -22,7 +22,7 @@ namespace SongSanctuary.View {
                 Console.Clear();
                 switch (operation) {
                     case 1:
-                        SongController.ListAll();
+                        _songController.ListAll();
                         break;
                     case 2:
                         Add();
@@ -81,7 +81,7 @@ namespace SongSanctuary.View {
 
 
         private void Update() {
-            SongController.ListAll(); // show all available songs
+            _songController.ListAll(); // show all available songs
 
             Console.WriteLine("Enter ID to update: ");
             if (!int.TryParse(Console.ReadLine(), out int id))
