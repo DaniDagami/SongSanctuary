@@ -12,15 +12,15 @@ namespace SongSanctuary {
             Input();
         }
         public void ShowCommands() {
-            Console.WriteLine(new string('-', 21));
-            Console.WriteLine(new string(' ', 6) + "Commands");
-            Console.WriteLine(new string('-', 21));
-            Console.WriteLine(new string(' ', 5) + "1. Songs");
-            Console.WriteLine(new string(' ', 5) + "2. Albums");
-            Console.WriteLine(new string(' ', 5) + "3. Artists");
-            Console.WriteLine(new string(' ', 5) + "4. Bands");
-            Console.WriteLine(new string(' ', 5) + "5. Exit");
-            Console.WriteLine(new string('-', 21));
+            Console.WriteLine(new string('-', 91));
+            Console.WriteLine(new string(' ', 41) + "Commands");
+            Console.WriteLine(new string('-', 91));
+            Console.WriteLine(new string(' ', 40) + "1. Songs");
+            Console.WriteLine(new string(' ', 40) + "2. Albums");
+            Console.WriteLine(new string(' ', 40) + "3. Artists");
+            Console.WriteLine(new string(' ', 40) + "4. Bands");
+            Console.WriteLine(new string(' ', 40) + "5. Exit");
+            Console.WriteLine(new string('-', 91));
         }
 
         private void Input() {

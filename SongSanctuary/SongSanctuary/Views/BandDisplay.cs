@@ -20,7 +20,7 @@ namespace SongSanctuary.View {
                 ShowCommands();
                 operation = int.Parse(Console.ReadLine());
                 Console.Clear();
-                switch (operation) {
+                switch(operation) {
                     case 1:
                         _bandController.ListAll();
                         break;
@@ -40,7 +40,7 @@ namespace SongSanctuary.View {
                         break;
 
                 }
-            } while (operation != closeOperationId);
+            } while(operation != closeOperationId);
         }
 
         private void Add() {
@@ -55,7 +55,7 @@ namespace SongSanctuary.View {
 
 
             string memberCount = Console.ReadLine();
-            if (!int.TryParse(memberCount, out int members))
+            if(!int.TryParse(memberCount, out int members))
                 throw new ArgumentException("Invalid length format. The count of members will be set to default (0).");
 
             band.MemberCount = members;
@@ -68,7 +68,7 @@ namespace SongSanctuary.View {
             _bandController.ListAll(); // show all available bands
 
             Console.WriteLine("Enter ID to update:");
-            if (!int.TryParse(Console.ReadLine(), out int id))
+            if(!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid number format.");
 
             Band band = _bandController.Get(id) ?? throw new ArgumentException("Band not found!");
@@ -86,7 +86,7 @@ namespace SongSanctuary.View {
 
             Console.WriteLine("Enter member count: ");
             string memberCount = Console.ReadLine();
-            if (!int.TryParse(memberCount, out int members))
+            if(!int.TryParse(memberCount, out int members))
                 throw new ArgumentException("Invalid number format. The count of members will be set to default (0).");
 
             band.MemberCount = members;
@@ -96,21 +96,29 @@ namespace SongSanctuary.View {
 
 
         private void Fetch() {
+            _bandController.ListAll();
+            AlbumController albumController = new AlbumController();
+
             Console.WriteLine("Enter ID to fetch:");
 
-            if (!int.TryParse(Console.ReadLine(), out int id))
+            if(!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Input should be integer.");
+            Console.Clear();
 
             Band? band = _bandController.Get(id) ?? throw new ArgumentException("Band not found!");
 
-            string info = band.ToString();
-            int maxCharacterLength = info.Length;
-            ShowHeader(maxCharacterLength, info, "Band");
+            List<string> albums = albumController.GetAll().Where(x=>x.BandId == id).Select(s=>s.ToString()).ToList();
+            int maxCharacterLength = albums.Max(x => x.Length);
+            StringBuilder info = new StringBuilder();
+            foreach(var item in albums) {
+                info.AppendLine(item.ToString());
+            }
+            ShowHeader(maxCharacterLength, info.ToString().Trim(), band.Name);
         }
 
         private void Delete() {
             Console.WriteLine("Enter ID to delete: ");
-            if (!int.TryParse(Console.ReadLine(), out int id))
+            if(!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
 
             Band band = _bandController.Get(id) ?? throw new ArgumentException("Band not found!");
