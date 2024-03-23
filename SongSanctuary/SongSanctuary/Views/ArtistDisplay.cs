@@ -69,7 +69,7 @@ namespace SongSanctuary.View {
                     throw new ArgumentException("Invalid input. Artist will not be associated with any band.");
 
                 Band band = bandController.Get(bandId);
-                if (band is null)
+                if (band == null)
                     throw new ArgumentException("Band not found. Artist will not be associated with any album.");
 
                 artist.BandId = bandId;
@@ -79,14 +79,12 @@ namespace SongSanctuary.View {
 
         private void Update() {
             ArtistController.ListAll(); // show all available artists
-            Console.WriteLine("Enter ID to update: ");
-            if (!int.TryParse(Console.ReadLine(), out int id)) {
-                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
-            }
 
-            Artist artist = _artistController.Get(id);
-            if (artist == null)
-                throw new ArgumentException("Artist not found!"); // TODO: ArgumentException
+            Console.WriteLine("Enter ID to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+                throw new ArgumentException("Invalid input. Input should be integer.");
+
+            Artist artist = _artistController.Get(id) ?? throw new ArgumentException("Artist not found!");
 
             string info = artist.ToString();
             string title = "Current values for this artist are:";
@@ -127,12 +125,12 @@ namespace SongSanctuary.View {
 
             Console.WriteLine("Enter ID to fetch:");
             if (!int.TryParse(Console.ReadLine(), out int id)) {
-                throw new ArgumentException("Invalid input. Input should be integer."); // TODO: ArgumentException
+                throw new ArgumentException("Invalid input. Input should be integer.");
             }
 
             Artist? artist = _artistController.Get(id);
             if (artist == null)
-                throw new ArgumentException("Artist not found!"); // TODO: ArgumentException
+                throw new ArgumentException("Artist not found!");
 
             Band? band = bandController.Get(artist.BandId);
             string info = artist.ToString();
@@ -144,17 +142,13 @@ namespace SongSanctuary.View {
 
         private void Delete() {
             Console.WriteLine("Enter ID to delete: ");
-            if (int.TryParse(Console.ReadLine(), out int id)) {
-                Artist artist = _artistController.Get(id);
-                if (artist == null) {
-                    throw new ArgumentException("Artist was not found!");
-                }
-                _artistController.Delete(id);
-                Console.WriteLine("This song has been deleted!");
-            } else {
+            if (!int.TryParse(Console.ReadLine(), out int id))
                 throw new ArgumentException("Invalid input. Please enter a valid integer ID.");
-            }
 
+            Artist artist = _artistController.Get(id) ?? throw new ArgumentException("Artist was not found!");
+
+            _artistController.Delete(id);
+            Console.WriteLine("This song has been deleted!");
         }
     }
 }
