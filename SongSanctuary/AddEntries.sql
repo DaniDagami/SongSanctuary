@@ -17,9 +17,9 @@ VALUES
 ('Radiohead', 1, 4),
 ('The Kinks', 1, 4),
 ('Green Day', 1, 4),
-('The Police', 1, 3)
+('The Police', 1, 3),
 ('Fleetwood Mac', 1, 4),
-('Blur', 1, 4);
+('Blur', 1, 4),
 ('Oasis', 1, 4),
 ('Cream', 1, 4),
 ('Deep Purple', 1, 5);
@@ -43,7 +43,7 @@ VALUES
 ('Dookie', 1994, 14, 15),
 ('Synchronicity', 1983, 11, 16),
 ('Rumours', 1977, 11, 17),
-('Parklife', 1994, 16, 18);
+('Parklife', 1994, 16, 18),
 ('Definitely Maybe', 1994, 11, 19),
 ('Disraeli Gears', 1967, 11, 20),
 ('Machine Head', 1972, 7, 21);
@@ -59,7 +59,7 @@ INSERT INTO Songs (Name, Length, Genre, AlbumId) VALUES
 ('Stairway to Heaven', '8:02', 'Rock', 2),
 ('Bohemian Rhapsody', '5:55', 'Rock', 3),
 ('Youre My Best Friend', '2:50', 'Rock', 3),
-('Love of My Life', '3:38', 'Rock', 3);
+('Love of My Life', '3:38', 'Rock', 3),
 ('Back in Black', '4:15', 'Rock', 4),
 ('You Shook Me All Night Long', '3:30', 'Rock', 4),
 ('Hells Bells', '5:12', 'Rock', 4),
@@ -135,16 +135,16 @@ VALUES
 ('Pete', 'Townshend', 1, 5),
 ('Roger', 'Daltrey', 1, 5),
 ('Keith', 'Moon', 0, 5),
-('John', 'Entwistle', 0, 5);
+('John', 'Entwistle', 0, 5),
 ('Mick', 'Jagger', 1, 6),
 ('Keith', 'Richards', 1, 6),
 ('Charlie', 'Watts', 1, 6),
 ('Ron', 'Wood', 1, 6),
 ('Kurt', 'Cobain', 0, 7),
 ('Dave', 'Grohl', 1, 7),
-('Krist', 'Novoselic', 1, 7);
+('Krist', 'Novoselic', 1, 7),
 ('Axl', 'Rose', 1, 8),
-('Slash', null, 1, 8),
+('Slash', '', 1, 8),
 ('Duff', 'McKagan', 1, 8),
 ('Steven', 'Adler', 1, 8),
 ('James', 'Hetfield', 1, 9),
@@ -174,7 +174,7 @@ VALUES
 ('Billie', 'Joe Armstrong', 1, 15),
 ('Mike', 'Dirnt', 1, 15),
 ('Tré', 'Cool', 1, 15),
-('Sting', null, 1, 16),
+('Sting', '', 1, 16),
 ('Andy', 'Summers', 1, 16),
 ('Stewart', 'Copeland', 1, 16),
 ('John', 'McVie', 1, 17),
@@ -195,5 +195,5 @@ VALUES
 ('Ian', 'Gillan', 1, 12),
 ('Ritchie', 'Blackmore', 1, 21),
 ('Roger', 'Glover', 1, 21),
-('Ian', 'Paice', 1, 21)
+('Ian', 'Paice', 1, 21),
 ('Jon', 'Lord',0 ,21) ;

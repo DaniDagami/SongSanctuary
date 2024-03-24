@@ -52,7 +52,7 @@ namespace SongSanctuary {
                     Console.WriteLine(ae);
                 }
                 catch (Exception e) {
-                    Console.WriteLine(e);
+                    Console.WriteLine("Error!");
                 }
             } while (operation != _closeOperationId);
 
